@@ -18,7 +18,7 @@ Refer to `.env.example`
 
 # Running
 
-`yarn dev` for local development
+`npm run dev` for local development after `npm install`
 
 # Contribution
 
