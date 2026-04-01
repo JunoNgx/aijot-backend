@@ -6,7 +6,6 @@
   "scripts": {
     "dev": "tsx watch src/dev.ts",
     "build": "tsc",
-    "vercel-build": "tsc",
     "format": "prettier --write \"src/**/*.ts\" \"api/**/*.ts\""
   },
   "dependencies": {
