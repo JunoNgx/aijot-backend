@@ -18,7 +18,7 @@ Refer to `.env.example`
 
 # Running
 
-TODO
+`yarn dev` for local development
 
 # Contribution
 
