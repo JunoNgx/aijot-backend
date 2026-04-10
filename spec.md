@@ -23,7 +23,7 @@ This backend is solely dedicated to two tasks:
 
 ## API interface
 
-* POST `/api/auth/callback`: handle the OAuth callback, exchanging auth code for token
+* POST `/api/auth/callback`: handle the OAuth callback, exchanging auth code for access token (stored in response body) and refresh token (stored in cookie)
 - POST `/api/auth/refresh`: refreshes an expired Google OAuth access token using the stored refresh token
 - POST `/api/auth/logout`: logs user out, destroy cookies
 - GET `/api/link/fetch/`: fetch the url and returns with page title and favicon. Respond in { title, faviconUrl }
