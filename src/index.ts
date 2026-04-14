@@ -2,7 +2,7 @@ import { Hono } from 'hono'
 import authRoutes from './routes/auth'
 import linkRoutes from './routes/link'
 
-const app = new Hono()
+const app = new Hono({ strict: false })
 
 const allowedOrigins = (process.env.ALLOWED_ORIGINS ?? '')
     .split(',')
