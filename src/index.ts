@@ -10,7 +10,7 @@ const allowedOrigins = (process.env.ALLOWED_ORIGINS ?? '')
     .filter((s): s is string => Boolean(s))
 
 app.use('*', async (c, next) => {
-    const origin = c.req.raw.headers.get('origin') ?? ''
+    const origin = c.req.header('origin') ?? ''
     const allowedOrigin = allowedOrigins.includes(origin) ? origin : null
 
     if (allowedOrigin) {
