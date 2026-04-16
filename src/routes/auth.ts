@@ -43,12 +43,28 @@ auth.post('/callback', async (c) => {
         )
     }
 
+    const userRes = await fetch('https://www.googleapis.com/oauth2/v3/userinfo', {
+        headers: { Authorization: `Bearer ${data['access_token']}` },
+    })
+
+    if (!userRes.ok) {
+        return c.json({ error: 'Failed to fetch user info', error_code: 'userinfo_error' }, 400)
+    }
+
+    const userInfo = (await userRes.json()) as Record<string, string>
+
     setCookie(c, 'access_token', data['access_token'], cookieOptions)
     if (data['refresh_token']) {
         setCookie(c, 'refresh_token', data['refresh_token'], cookieOptions)
     }
 
-    return c.json({ ok: true })
+    const expiresAt = new Date(Date.now() + Number(data['expires_in']) * 1000).toISOString()
+
+    return c.json({
+        accessToken: data['access_token'],
+        expiresAt,
+        email: userInfo['email'],
+    })
 })
 
 auth.post('/refresh', async (c) => {
@@ -82,7 +98,12 @@ auth.post('/refresh', async (c) => {
 
     setCookie(c, 'access_token', data['access_token'], cookieOptions)
 
-    return c.json({ ok: true })
+    const expiresAt = new Date(Date.now() + Number(data['expires_in']) * 1000).toISOString()
+
+    return c.json({
+        accessToken: data['access_token'],
+        expiresAt,
+    })
 })
 
 auth.post('/logout', (c) => {
