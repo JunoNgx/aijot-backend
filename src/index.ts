@@ -18,18 +18,22 @@ app.use('*', async (c, next) => {
      * which calls this.raw.headers.get(). Normalize it here before CORS runs.
      * See: https://github.com/sergiodxa/remix-i18next/issues/117
      */
-    const raw = c.req.raw as any
-    const headers = raw.headers
-    if (headers && typeof headers.get !== 'function') {
-        const normalized = new Headers()
-        for (const [key, value] of Object.entries(headers)) {
-            if (typeof value === 'string') {
-                normalized.set(key, value)
-            } else if (Array.isArray(value)) {
-                value.forEach((v: string) => normalized.append(key, v))
+    try {
+        const raw = c.req.raw as any
+        const headers = raw.headers
+        if (headers && typeof headers.get !== 'function') {
+            const normalized = new Headers()
+            for (const [key, value] of Object.entries(headers)) {
+                if (typeof value === 'string') {
+                    normalized.set(key, value)
+                } else if (Array.isArray(value)) {
+                    value.forEach((v: string) => normalized.append(key, v))
+                }
             }
+            raw.headers = normalized
         }
-        raw.headers = normalized
+    } catch {
+        // Leave headers alone if normalization fails
     }
     await next()
 })
