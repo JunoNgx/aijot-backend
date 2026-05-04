@@ -10,18 +10,18 @@ import linkRoutes from './routes/link'
  * which calls this.raw.headers.get(). Fix it here before CORS runs.
  * See: https://github.com/sergiodxa/remix-i18next/issues/117
  */
-const originalHeader = HonoRequest.prototype.header as any
-HonoRequest.prototype.header = function (name?: string) {
-    const headers = this.raw.headers
-    if (headers instanceof Headers) {
-        return originalHeader.call(this, name)
-    }
-    console.warn('[headers fix] Non-Headers instance received:', typeof headers)
-    if (name === undefined) {
-        return headers as Record<string, string>
-    }
-    return headers
-}
+// const originalHeader = HonoRequest.prototype.header as any
+// HonoRequest.prototype.header = function (name?: string) {
+//     const headers = this.raw.headers
+//     if (headers instanceof Headers) {
+//         return originalHeader.call(this, name)
+//     }
+//     console.warn('[headers fix] Non-Headers instance received:', typeof headers)
+//     if (name === undefined) {
+//         return headers as Record<string, string>
+//     }
+//     return headers
+// }
 
 const app = new Hono({ strict: false })
 
