@@ -3,7 +3,7 @@ export async function fetchMetadata(
 ): Promise<{ title: string | null; faviconUrl: string | null } | null> {
     try {
         const res = await fetch(url, {
-            headers: { 'User-Agent': 'Mozilla/5.0 (compatible; aijot-bot/1.0)' },
+            headers: { "User-Agent": "Mozilla/5.0 (compatible; aijot-bot/1.0)" },
             signal: AbortSignal.timeout(5000),
         })
 
