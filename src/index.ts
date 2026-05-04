@@ -5,7 +5,8 @@ import linkRoutes from './routes/link'
 
 const app = new Hono({ strict: false })
 
-const allowedOrigins = (process.env.ALLOWED_ORIGINS ?? '')
+const ALLOWED_ORIGINS_FALLBACK = 'https://aijot.app,https://aijot.vercel.app'
+const allowedOrigins = (process.env.ALLOWED_ORIGINS ?? ALLOWED_ORIGINS_FALLBACK)
     .split(',')
     .map((s) => s.trim())
     .filter(Boolean)
